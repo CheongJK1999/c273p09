@@ -32,6 +32,24 @@ mysqli_close($link);
                 
                 var idCountry = $("#idCountry").val();
                 console.log(idCountry);
+                $.ajax({
+                    type: "GET",
+                    url: "getCountryDetails.php",
+                    cache: false,
+                    dataType: "JSON",
+                    success: function (response) {
+                        var message = "";
+                        for (i = 0; i < response.length; i++) {
+                            message += "<tr><td>" + response[i].student_id + "</td>"
+                                    + "<td>" + response[i].population + "</td>"
+                                    + "<td>" + response[i].obese + "</td>"
+                        }
+                        $("#idCountry").html(message);
+                    },
+                    error: function (obj, textStatus, errorThrown) {
+                        console.log("Error " + textStatus + ": " + errorThrown);
+                    }
+                });
             });
         </script>
     </head>
